@@ -80,7 +80,7 @@ Todas las rutas van bajo `/api`. Las de personal interno exigen rol `personal`; 
 | `GET /proyectos/:id/avances`, `POST /proyectos/:id/avances` | Historial y registro de avance |
 | `GET /mis-proyectos`, `GET /mis-proyectos/:id` | Consulta del cliente (solo sus proyectos) |
 
-Los errores de validación responden 422 con `{ mensaje, campos }`, donde `campos` trae el mensaje de cada campo.
+Los errores responden `{ error }`; los de validación (422) agregan `campos`, con el mensaje de cada campo. El detalle de cada servicio está en [docs/documentacion-tecnica.md](docs/documentacion-tecnica.md) y el uso de las pantallas en [docs/manual-de-usuario.md](docs/manual-de-usuario.md).
 
 ## Puntos de integración con la plataforma base
 
