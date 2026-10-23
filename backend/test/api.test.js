@@ -214,3 +214,15 @@ describe('consulta del cliente', () => {
     assert.equal(respuesta.estado, 401);
   });
 });
+
+describe('conexión con la base', () => {
+  it('sigue respondiendo después de que la base corta las conexiones inactivas', async () => {
+    await Promise.all([pedir('GET', '/api/clientes'), pedir('GET', '/api/proyectos')]);
+    const cliente = await base.conexion.connect();
+    await cliente.query('select pg_terminate_backend(pid) from pg_stat_activity where datname = current_database() and pid <> pg_backend_pid()');
+    cliente.release();
+    await new Promise((listo) => setTimeout(listo, 200));
+
+    assert.equal((await pedir('GET', '/api/clientes')).estado, 200);
+  });
+});

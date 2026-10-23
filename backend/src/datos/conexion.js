@@ -5,7 +5,13 @@ pg.types.setTypeParser(pg.types.builtins.DATE, (valor) => valor);
 pg.types.setTypeParser(pg.types.builtins.INT8, (valor) => Number(valor));
 
 export function crearConexion(urlBaseDatos) {
-  return new pg.Pool({ connectionString: urlBaseDatos, max: 10 });
+  const conexion = new pg.Pool({ connectionString: urlBaseDatos, max: 10 });
+  // Si la base corta una conexión inactiva (reinicio, mantenimiento), el pool la descarta y abre otra en la siguiente consulta;
+  // sin este manejador el evento no atendido tumba el proceso completo.
+  conexion.on('error', (error) => {
+    console.error('Se perdió una conexión inactiva con la base de datos:', error.message);
+  });
+  return conexion;
 }
 
 export async function enTransaccion(conexion, trabajo) {
