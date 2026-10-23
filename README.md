@@ -40,6 +40,15 @@ Pruebas del backend (crean y borran una base temporal en el mismo servidor local
 npm test
 ```
 
+Casos de prueba funcionales (actividad 12). Manejan la app en Chrome con los dos servidores corriendo y la base recién reiniciada, y escriben el registro de resultados y las capturas en `docs/pruebas/`:
+
+```bash
+npm run bd:reiniciar
+npm run pruebas:funcionales
+```
+
+Si Chrome no está en la ruta de macOS, se indica con `RUTA_CHROME`.
+
 ## Sesión de prueba
 
 Mientras la plataforma base no tenga inicio de sesión, el backend corre con `AUTENTICACION=prueba` y lee la sesión de dos encabezados:
