@@ -65,13 +65,13 @@ join (values
 -- Historial: un registro por etapa cerrada y, si el avance actual no coincide con un cierre, un registro con el valor actual.
 insert into historial_avance (proyecto_id, etapa_id, porcentaje, comentario, modificado_por, registrado_en)
 select et.proyecto_id, et.id, 25 * et.orden, 'Cierre de la etapa ' || et.nombre,
-       'aaaaaaaa-aaaa-4aaa-8aaa-000000000001', et.fecha_fin::timestamptz
+       'aaaaaaaa-aaaa-4aaa-8aaa-000000000001', (et.fecha_fin + time '17:30') at time zone 'America/Chihuahua'
 from etapas et
 where et.estado = 'terminada';
 
 insert into historial_avance (proyecto_id, etapa_id, porcentaje, comentario, modificado_por, registrado_en)
 select p.id, et.id, p.porcentaje_avance, 'Avance parcial de la etapa ' || et.nombre,
-       'aaaaaaaa-aaaa-4aaa-8aaa-000000000001', least(now(), et.fecha_inicio::timestamptz + interval '10 days')
+       'aaaaaaaa-aaaa-4aaa-8aaa-000000000001', least(now(), (et.fecha_inicio + 10 + time '12:15') at time zone 'America/Chihuahua')
 from proyectos p
 join etapas et on et.proyecto_id = p.id and et.estado = 'en_curso'
 where p.porcentaje_avance % 25 <> 0;
