@@ -1,0 +1,17 @@
+{
+  "name": "innovapro-gestion-proyectos",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "bd:iniciar": "sh database/bd-local.sh iniciar",
+    "bd:detener": "sh database/bd-local.sh detener",
+    "bd:reiniciar": "sh database/bd-local.sh reiniciar",
+    "dev:backend": "npm run dev --workspace backend",
+    "dev:frontend": "npm run dev --workspace frontend",
+    "test": "npm test --workspace backend",
+    "build": "npm run build --workspace frontend"
+  }
+}
