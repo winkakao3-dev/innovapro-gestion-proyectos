@@ -5,3 +5,4 @@ dist/
 .bd-local/
 *.log
 .DS_Store
+.claude/
